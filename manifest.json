@@ -1,6 +1,7 @@
 {
   "short_name": "Weather App",
   "name": "Weather application using React and OpenWeatherAPI",
+  "icons": [],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
