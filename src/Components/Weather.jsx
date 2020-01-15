@@ -3,15 +3,18 @@ import { Card, CardHeader, CardContent } from "@material-ui/core";
 import { getWeatherByLocation } from "../API/WeatherAPI";
 import { properties } from "../properties";
 import "../Styles/Weather.css";
+import Loading from "./Loading";
+import Error from "./Error";
 
 const Weather = ({ location }) => {
   const [weather, setWeather] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     console.log("Fetching weather data for ", location);
     getWeatherByLocation(location)
       .then(data => setWeather(data))
-      .catch(err => setWeather(null));
+      .catch(err => setError(err));
   }, [location]);
 
   const getCurrentTime = () =>
@@ -22,7 +25,7 @@ const Weather = ({ location }) => {
 
   return (
     <Card raised className="weather-app-card">
-      {weather ? (
+      {weather && (
         <>
           <CardHeader
             title={weather.main.temp + "\xB0F"}
@@ -35,9 +38,9 @@ const Weather = ({ location }) => {
             ></img>
           </CardContent>
         </>
-      ) : (
-        <CardHeader subheader="Unable to fetch weather data. Please try after sometime" />
       )}
+      {error && <Error />}
+      {!error && !weather && <Loading />}
     </Card>
   );
 };
