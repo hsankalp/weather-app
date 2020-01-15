@@ -13,10 +13,9 @@ import Loading from "./Loading";
 import Error from "./Error";
 import { converToCelcius } from "../Helper/convertTemperature";
 
-const Weather = ({ location }) => {
+const Weather = ({ location, isMetric, onButtonClick }) => {
   const [weather, setWeather] = useState();
   const [error, setError] = useState();
-  const [isMetric, setIsMetric] = useState(false);
 
   useEffect(() => {
     console.log("Fetching weather data for ", location);
@@ -24,10 +23,6 @@ const Weather = ({ location }) => {
       .then(data => setWeather(data))
       .catch(err => setError(err));
   }, [location]);
-
-  const handleClick = () => {
-    setIsMetric(!isMetric);
-  };
 
   const getCurrentTime = () =>
     new Date().toLocaleTimeString([], {
@@ -56,7 +51,7 @@ const Weather = ({ location }) => {
             ></img>
           </CardContent>
           <CardActions>
-            <Button size="small" color="primary" onClick={handleClick}>
+            <Button size="small" color="primary" onClick={onButtonClick}>
               {isMetric ? <>Fahrenheit</> : <>Celcius</>}
             </Button>
           </CardActions>

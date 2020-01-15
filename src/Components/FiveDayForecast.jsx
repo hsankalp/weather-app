@@ -14,10 +14,9 @@ import Error from "./Error";
 import Loading from "./Loading";
 import { converToCelcius } from "../Helper/convertTemperature";
 
-const FiveDayForecast = ({ location }) => {
+const FiveDayForecast = ({ location, isMetric, onButtonClick }) => {
   const [forecast, setForecast] = useState();
   const [error, setError] = useState();
-  const [isMetric, setIsMetric] = useState(false);
 
   useEffect(() => {
     console.log("Fetching forecast data for ", location);
@@ -25,10 +24,6 @@ const FiveDayForecast = ({ location }) => {
       .then(data => setForecast(data))
       .catch(err => setError(err));
   }, [location]);
-
-  const handleClick = () => {
-    setIsMetric(!isMetric);
-  };
 
   const getTemperature = temp => {
     return isMetric
@@ -58,7 +53,7 @@ const FiveDayForecast = ({ location }) => {
             </Grid>
           </CardContent>
           <CardActions>
-            <Button size="small" color="primary" onClick={handleClick}>
+            <Button size="small" color="primary" onClick={onButtonClick}>
               {isMetric ? <>Fahrenheit</> : <>Celcius</>}
             </Button>
           </CardActions>
