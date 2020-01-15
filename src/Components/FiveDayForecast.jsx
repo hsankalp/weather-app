@@ -8,15 +8,17 @@ const FiveDayForecast = ({ location }) => {
   const [forecast, setForecast] = useState();
 
   useEffect(() => {
-    console.log("Fetching forecast data for", location);
-    getForecastByLocation(location).then(data => setForecast(data));
+    console.log("Fetching forecast data for ", location);
+    getForecastByLocation(location)
+      .then(data => setForecast(data))
+      .catch(err => setForecast(null));
   }, [location]);
 
   return (
-    <>
-      {forecast && (
-        <Card raised className="forecast-app-card">
-          <CardHeader title={forecast.city.name} />
+    <Card raised className="forecast-app-card">
+      {forecast ? (
+        <>
+          <CardHeader title={forecast.city.name} subheader="5 Day Forecast" />
           <CardContent>
             <Grid container justify="center" spacing={4}>
               {forecast.list
@@ -33,9 +35,11 @@ const FiveDayForecast = ({ location }) => {
                 ))}
             </Grid>
           </CardContent>
-        </Card>
+        </>
+      ) : (
+        <CardHeader subheader="Unable to fetch forecast data. Please try after sometime" />
       )}
-    </>
+    </Card>
   );
 };
 

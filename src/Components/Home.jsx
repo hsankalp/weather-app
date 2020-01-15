@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Tabs, Tab } from "@material-ui/core";
+import { AppBar, Tabs, Tab, Card, CardHeader } from "@material-ui/core";
 import Weather from "./Weather";
 import FiveDayForecast from "./FiveDayForecast";
 
@@ -32,6 +32,11 @@ const Home = () => {
       </AppBar>
       {value === 0 && location && <Weather location={location} />}
       {value === 1 && location && <FiveDayForecast location={location} />}
+      {!location && (
+        <Card raised>
+          <CardHeader subheader="Please enable location" />
+        </Card>
+      )}
     </>
   );
 };
