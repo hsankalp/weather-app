@@ -13,10 +13,10 @@ const DailyForecast = ({ date, min, max, icon }) => {
         alt="weather-icon"
       ></img>
       <Typography variant="body2" color="textPrimary">
-        Max: {max + "\xB0F"}
+        Max: {max}
       </Typography>
       <Typography variant="body2" color="textSecondary">
-        Min: {min + "\xB0F"}
+        Min: {min}
       </Typography>
     </>
   );
