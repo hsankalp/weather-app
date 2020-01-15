@@ -10,7 +10,7 @@ const FiveDayForecast = ({ location }) => {
   useEffect(() => {
     console.log("Fetching forecast data for", location);
     getForecastByLocation(location).then(data => setForecast(data));
-  }, [location.latitude, location.longitude]);
+  }, [location]);
 
   return (
     <>

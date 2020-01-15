@@ -10,7 +10,13 @@ const Weather = ({ location }) => {
   useEffect(() => {
     console.log("Fetching weather data", location);
     getWeatherByLocation(location).then(data => setWeather(data));
-  }, [location.latitude, location.longitude]);
+  }, [location]);
+
+  const getCurrentTime = () =>
+    new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
 
   return (
     <>
@@ -18,14 +24,7 @@ const Weather = ({ location }) => {
         <Card raised className="weather-app-card">
           <CardHeader
             title={weather.main.temp + "\xB0F"}
-            subheader={
-              weather.name +
-              " " +
-              new Date().toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit"
-              })
-            }
+            subheader={weather.name + " " + getCurrentTime()}
           />
           <img
             src={`${properties.weatherIconUrl}/${weather.weather[0].icon}@2x.png`}

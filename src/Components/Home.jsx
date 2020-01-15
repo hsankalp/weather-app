@@ -6,9 +6,6 @@ import FiveDayForecast from "./FiveDayForecast";
 const Home = () => {
   const [value, setValue] = useState(0);
   const [location, setLocation] = useState();
-  const handleChange = (e, val) => {
-    setValue(val);
-  };
 
   useEffect(() => {
     navigator.geolocation &&
@@ -19,7 +16,11 @@ const Home = () => {
         };
         setLocation(location);
       });
-  }, [location]);
+  }, []);
+
+  const handleChange = (e, val) => {
+    setValue(val);
+  };
 
   return (
     <>

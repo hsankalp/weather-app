@@ -12,8 +12,12 @@ const DailyForecast = ({ date, min, max, icon }) => {
         src={`${properties.weatherIconUrl}/${icon}@2x.png`}
         alt="weather-icon"
       ></img>
-      <Typography component="h6">Min: {min + "\xB0F"}</Typography>
-      <Typography component="h6">Max: {max + "\xB0F"}</Typography>
+      <Typography variant="body2" color="textPrimary" component="p">
+        Max: {max + "\xB0F"}
+      </Typography>
+      <Typography variant="body2" color="textSecondary" component="p">
+        Min: {min + "\xB0F"}
+      </Typography>
     </>
   );
 };
