@@ -56,7 +56,7 @@ const FiveDayForecast = ({ location, isMetric, onButtonClick }) => {
             </CardContent>
             <CardActions>
               <Button size="small" color="primary" onClick={onButtonClick}>
-                {isMetric ? `Fahrenheit` : `Celcius`}
+                {isMetric ? `Fahrenheit` : `Celsius`}
               </Button>
             </CardActions>
           </>
