@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Card,
   CardHeader,
@@ -8,22 +8,18 @@ import {
   Button
 } from "@material-ui/core";
 import DailyForecast from "./DailyForecast";
-import { getForecastByLocation } from "../API/ForecastAPI";
 import "../Styles/Forecast.css";
 import Error from "./Error";
 import Loading from "./Loading";
-import { converToCelcius } from "../Helper/convertTemperature";
+import { converToCelcius } from "../Helper/TemperatureUtil";
+import { properties } from "../properties";
+import { useHttpHook } from "../Hooks/HttpHook";
 
 const FiveDayForecast = ({ location, isMetric, onButtonClick }) => {
-  const [forecast, setForecast] = useState();
-  const [error, setError] = useState();
-
-  useEffect(() => {
-    console.log("Fetching forecast data for ", location);
-    getForecastByLocation(location)
-      .then(data => setForecast(data))
-      .catch(err => setError(err));
-  }, [location]);
+  const [isLoading, value, error] = useHttpHook(
+    properties.forecastUrl,
+    location
+  );
 
   const getTemperature = temp => {
     return isMetric
@@ -33,12 +29,12 @@ const FiveDayForecast = ({ location, isMetric, onButtonClick }) => {
 
   return (
     <Card raised className="forecast-app-card">
-      {forecast && (
+      {value && (
         <>
-          <CardHeader title={forecast.city.name} subheader="5 Day Forecast" />
+          <CardHeader title={value.city.name} subheader="5 Day Forecast" />
           <CardContent>
             <Grid container justify="center" spacing={4}>
-              {forecast.list
+              {value.list
                 .filter((data, index) => index % 8 === 0)
                 .map(data => (
                   <Grid key={data.dt} item className="daily-forecast-grid-item">
@@ -60,7 +56,7 @@ const FiveDayForecast = ({ location, isMetric, onButtonClick }) => {
         </>
       )}
       {error && <Error />}
-      {!error && !forecast && <Loading />}
+      {isLoading && <Loading />}
     </Card>
   );
 };

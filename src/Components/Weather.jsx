@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Card,
   CardHeader,
@@ -6,23 +6,18 @@ import {
   CardActions,
   Button
 } from "@material-ui/core";
-import { getWeatherByLocation } from "../API/WeatherAPI";
 import { properties } from "../properties";
 import "../Styles/Weather.css";
 import Loading from "./Loading";
 import Error from "./Error";
-import { converToCelcius } from "../Helper/convertTemperature";
+import { converToCelcius } from "../Helper/TemperatureUtil";
+import { useHttpHook } from "../Hooks/HttpHook";
 
 const Weather = ({ location, isMetric, onButtonClick }) => {
-  const [weather, setWeather] = useState();
-  const [error, setError] = useState();
-
-  useEffect(() => {
-    console.log("Fetching weather data for ", location);
-    getWeatherByLocation(location)
-      .then(data => setWeather(data))
-      .catch(err => setError(err));
-  }, [location]);
+  const [isLoading, value, error] = useHttpHook(
+    properties.weatherUrl,
+    location
+  );
 
   const getCurrentTime = () =>
     new Date().toLocaleTimeString([], {
@@ -38,15 +33,15 @@ const Weather = ({ location, isMetric, onButtonClick }) => {
 
   return (
     <Card raised className="weather-app-card">
-      {weather && (
+      {value && (
         <>
           <CardHeader
-            title={getTemperature(weather.main.temp)}
-            subheader={weather.name + " " + getCurrentTime()}
+            title={getTemperature(value.main.temp)}
+            subheader={value.name + " " + getCurrentTime()}
           />
           <CardContent>
             <img
-              src={`${properties.weatherIconUrl}/${weather.weather[0].icon}@2x.png`}
+              src={`${properties.weatherIconUrl}/${value.weather[0].icon}@2x.png`}
               alt="weather-icon"
             ></img>
           </CardContent>
@@ -58,7 +53,7 @@ const Weather = ({ location, isMetric, onButtonClick }) => {
         </>
       )}
       {error && <Error />}
-      {!error && !weather && <Loading />}
+      {isLoading && <Loading />}
     </Card>
   );
 };
