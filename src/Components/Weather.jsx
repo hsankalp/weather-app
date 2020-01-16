@@ -4,11 +4,11 @@ import {
   CardHeader,
   CardContent,
   CardActions,
-  Button
+  Button,
+  LinearProgress
 } from "@material-ui/core";
 import { properties } from "../properties";
 import "../Styles/Weather.css";
-import Loading from "./Loading";
 import Error from "./Error";
 import { converToCelcius } from "../Helper/TemperatureUtil";
 import { useHttpHook } from "../Hooks/HttpHook";
@@ -32,29 +32,31 @@ const Weather = ({ location, isMetric, onButtonClick }) => {
   };
 
   return (
-    <Card raised className="weather-app-card">
-      {value && (
-        <>
-          <CardHeader
-            title={getTemperature(value.main.temp)}
-            subheader={value.name + " " + getCurrentTime()}
-          />
-          <CardContent>
-            <img
-              src={`${properties.weatherIconUrl}/${value.weather[0].icon}@2x.png`}
-              alt="weather-icon"
-            ></img>
-          </CardContent>
-          <CardActions>
-            <Button size="small" color="primary" onClick={onButtonClick}>
-              {isMetric ? `Fahrenheit` : `Celcius`}
-            </Button>
-          </CardActions>
-        </>
-      )}
-      {error && <Error />}
-      {isLoading && <Loading />}
-    </Card>
+    <>
+      {isLoading && <LinearProgress color="secondary" />}
+      <Card raised className="weather-app-card">
+        {value && (
+          <>
+            <CardHeader
+              title={getTemperature(value.main.temp)}
+              subheader={value.name + " " + getCurrentTime()}
+            />
+            <CardContent>
+              <img
+                src={`${properties.weatherIconUrl}/${value.weather[0].icon}@2x.png`}
+                alt="weather-icon"
+              ></img>
+            </CardContent>
+            <CardActions>
+              <Button size="small" color="primary" onClick={onButtonClick}>
+                {isMetric ? `Fahrenheit` : `Celcius`}
+              </Button>
+            </CardActions>
+          </>
+        )}
+        {error && <Error />}
+      </Card>
+    </>
   );
 };
 
