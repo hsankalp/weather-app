@@ -11,11 +11,11 @@ import { properties } from "../properties";
 import "../Styles/Weather.css";
 import Error from "./Error";
 import { converToCelcius } from "../Helper/TemperatureUtil";
-import { useHttpHook } from "../Hooks/HttpHook";
+import { useFetchHook } from "../Hooks/FetchHook";
 
 const Weather = ({ location, isMetric, onButtonClick }) => {
-  const [isLoading, value, error] = useHttpHook(
-    properties.weatherUrl,
+  const [isLoading, value, error] = useFetchHook(
+    `${properties.weatherUrl}?lat=${location.latitude}&lon=${location.longitude}&units=imperial&appId=${properties.apiKey}`,
     location
   );
 

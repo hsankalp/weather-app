@@ -13,11 +13,11 @@ import "../Styles/Forecast.css";
 import Error from "./Error";
 import { converToCelcius } from "../Helper/TemperatureUtil";
 import { properties } from "../properties";
-import { useHttpHook } from "../Hooks/HttpHook";
+import { useFetchHook } from "../Hooks/FetchHook";
 
 const FiveDayForecast = ({ location, isMetric, onButtonClick }) => {
-  const [isLoading, value, error] = useHttpHook(
-    properties.forecastUrl,
+  const [isLoading, value, error] = useFetchHook(
+    `${properties.forecastUrl}?lat=${location.latitude}&lon=${location.longitude}&units=imperial&appId=${properties.apiKey}`,
     location
   );
 
