@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Tabs, Tab, Card, CardHeader } from "@material-ui/core";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  NavLink,
+  Redirect
+} from "react-router-dom";
 import Weather from "./Weather";
 import FiveDayForecast from "./FiveDayForecast";
 
 const Home = () => {
-  const [value, setValue] = useState(0);
   const [location, setLocation] = useState();
   const [isMetric, setIsMetric] = useState(false);
 
@@ -19,42 +25,45 @@ const Home = () => {
       });
   }, []);
 
-  const handleChange = (e, val) => {
-    setValue(val);
-  };
-
   const handleMeasureChange = () => {
     setIsMetric(!isMetric);
   };
 
   return (
-    <>
+    <BrowserRouter>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange}>
-          <Tab label="Weather" />
-          <Tab label="5 Day Forecast" />
+        <Tabs value={false}>
+          <Tab label="Weather" component={NavLink} to="/weather" />
+          <Tab label="Forecast" component={NavLink} to="/forecast" />
         </Tabs>
       </AppBar>
-      {value === 0 && location && (
-        <Weather
-          location={location}
-          isMetric={isMetric}
-          onButtonClick={handleMeasureChange}
-        />
-      )}
-      {value === 1 && location && (
-        <FiveDayForecast
-          location={location}
-          isMetric={isMetric}
-          onButtonClick={handleMeasureChange}
-        />
+      {location && (
+        <div className="main">
+          <Switch>
+            <Route exact path="/weather">
+              <Weather
+                location={location}
+                isMetric={isMetric}
+                onButtonClick={handleMeasureChange}
+              />
+            </Route>
+            <Route exact path="/forecast">
+              <FiveDayForecast
+                location={location}
+                isMetric={isMetric}
+                onButtonClick={handleMeasureChange}
+              />
+            </Route>
+            <Redirect to="/weather"></Redirect>
+          </Switch>
+        </div>
       )}
       {!location && (
         <Card raised>
           <CardHeader subheader="Please enable location" />
         </Card>
       )}
-    </>
+    </BrowserRouter>
   );
 };
 
