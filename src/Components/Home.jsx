@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Tabs, Tab, Card, CardHeader } from "@material-ui/core";
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  NavLink,
-  Redirect
-} from "react-router-dom";
+import { HashRouter, Switch, Route, NavLink, Redirect } from "react-router-dom";
 import Weather from "./Weather";
 import FiveDayForecast from "./FiveDayForecast";
 
@@ -30,35 +24,31 @@ const Home = () => {
   };
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AppBar position="static">
         <Tabs value={false}>
-          <Tab label="Weather" component={NavLink} to="/weather-app/weather" />
-          <Tab
-            label="Forecast"
-            component={NavLink}
-            to="/weather-app/forecast"
-          />
+          <Tab label="Weather" component={NavLink} to="/weather" />
+          <Tab label="Forecast" component={NavLink} to="/forecast" />
         </Tabs>
       </AppBar>
       {location && (
         <div className="main">
           <Switch>
-            <Route exact path="/weather-app/weather">
+            <Route exact path="/weather">
               <Weather
                 location={location}
                 isMetric={isMetric}
                 onButtonClick={handleMeasureChange}
               />
             </Route>
-            <Route exact path="/weather-app/forecast">
+            <Route exact path="/forecast">
               <FiveDayForecast
                 location={location}
                 isMetric={isMetric}
                 onButtonClick={handleMeasureChange}
               />
             </Route>
-            <Redirect to="/weather-app/weather"></Redirect>
+            <Redirect to="/weather"></Redirect>
           </Switch>
         </div>
       )}
@@ -67,7 +57,7 @@ const Home = () => {
           <CardHeader subheader="Please enable location" />
         </Card>
       )}
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
