@@ -33,28 +33,32 @@ const Home = () => {
     <BrowserRouter>
       <AppBar position="static">
         <Tabs value={false}>
-          <Tab label="Weather" component={NavLink} to="/weather" />
-          <Tab label="Forecast" component={NavLink} to="/forecast" />
+          <Tab label="Weather" component={NavLink} to="/weather-app/weather" />
+          <Tab
+            label="Forecast"
+            component={NavLink}
+            to="/weather-app/forecast"
+          />
         </Tabs>
       </AppBar>
       {location && (
         <div className="main">
           <Switch>
-            <Route exact path="/weather">
+            <Route exact path="/weather-app/weather">
               <Weather
                 location={location}
                 isMetric={isMetric}
                 onButtonClick={handleMeasureChange}
               />
             </Route>
-            <Route exact path="/forecast">
+            <Route exact path="/weather-app/forecast">
               <FiveDayForecast
                 location={location}
                 isMetric={isMetric}
                 onButtonClick={handleMeasureChange}
               />
             </Route>
-            <Redirect to="/weather"></Redirect>
+            <Redirect to="/weather-app/weather"></Redirect>
           </Switch>
         </div>
       )}
