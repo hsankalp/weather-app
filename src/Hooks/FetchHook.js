@@ -6,7 +6,6 @@ export const useFetchHook = (url, options) => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    console.log("Fetching data for ", options);
     setIsLoading(true);
     fetch(url)
       .then(response => {

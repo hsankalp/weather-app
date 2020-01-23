@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Typography } from "@material-ui/core";
 import { properties } from "../properties";
+import { getTemperature } from "../Helper/TemperatureUtil";
+import { MeasureContext } from "../Context/MeasureContext";
 
 const DailyForecast = ({ date, min, max, icon }) => {
+  const { isMetric } = useContext(MeasureContext);
+
   return (
     <>
       <Typography variant="body2" color="textSecondary">
@@ -13,10 +17,10 @@ const DailyForecast = ({ date, min, max, icon }) => {
         alt="weather-icon"
       ></img>
       <Typography variant="body2" color="textPrimary">
-        Max: {max}
+        Max: {getTemperature(max, isMetric)}
       </Typography>
       <Typography variant="body2" color="textSecondary">
-        Min: {min}
+        Min: {getTemperature(min, isMetric)}
       </Typography>
     </>
   );

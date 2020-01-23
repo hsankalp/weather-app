@@ -1,9 +1,11 @@
 import React from "react";
-import { CardHeader } from "@material-ui/core";
+import { Card, CardHeader } from "@material-ui/core";
 
-const Error = () => {
+const Error = ({ errorMessage }) => {
   return (
-    <CardHeader subheader="Unable to fetch weather data. Please try after sometime" />
+    <Card raised>
+      <CardHeader subheader={errorMessage} />
+    </Card>
   );
 };
 

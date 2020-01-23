@@ -1,27 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { AppBar, Tabs, Tab, Card, CardHeader } from "@material-ui/core";
+import React, { useState } from "react";
+import { AppBar, Tabs, Tab } from "@material-ui/core";
 import { HashRouter, Switch, Route, NavLink, Redirect } from "react-router-dom";
 import Weather from "./Weather";
 import FiveDayForecast from "./FiveDayForecast";
+import { MeasureContext } from "../Context/MeasureContext";
+import { useLocation } from "../Hooks/LocationHook";
+import Error from "./Error";
 
 const Home = () => {
-  const [location, setLocation] = useState();
   const [isMetric, setIsMetric] = useState(false);
+  const location = useLocation();
 
-  useEffect(() => {
-    navigator.geolocation &&
-      navigator.geolocation.getCurrentPosition(data => {
-        const location = {
-          latitude: data.coords.latitude,
-          longitude: data.coords.longitude
-        };
-        setLocation(location);
-      });
-  }, []);
-
-  const handleMeasureChange = () => {
-    setIsMetric(!isMetric);
-  };
+  if (!location) {
+    return <Error errorMessage="Please enable location and try again" />;
+  }
 
   return (
     <HashRouter>
@@ -33,29 +25,18 @@ const Home = () => {
       </AppBar>
       {location && (
         <div className="main">
-          <Switch>
-            <Route exact path="/weather">
-              <Weather
-                location={location}
-                isMetric={isMetric}
-                onButtonClick={handleMeasureChange}
-              />
-            </Route>
-            <Route exact path="/forecast">
-              <FiveDayForecast
-                location={location}
-                isMetric={isMetric}
-                onButtonClick={handleMeasureChange}
-              />
-            </Route>
-            <Redirect to="/weather"></Redirect>
-          </Switch>
+          <MeasureContext.Provider value={{ isMetric, setIsMetric }}>
+            <Switch>
+              <Route exact path="/weather">
+                <Weather location={location} />
+              </Route>
+              <Route exact path="/forecast">
+                <FiveDayForecast location={location} />
+              </Route>
+              <Redirect to="/weather"></Redirect>
+            </Switch>
+          </MeasureContext.Provider>
         </div>
-      )}
-      {!location && (
-        <Card raised>
-          <CardHeader subheader="Please enable location" />
-        </Card>
       )}
     </HashRouter>
   );

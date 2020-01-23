@@ -1,26 +1,29 @@
-## Objectives:
+## Weather Web Application:
 
-* To create a current weather page. The page should consist of the temperature for the user’s current location, and the appropriate OpenWeatherMap icon representing the forecast weather conditions.
+- Created a current weather page. The page consists of temperature for the user’s current location, and the appropriate OpenWeatherMap icon representing the forecast weather conditions. User can switch between degree celsius and fahrenheit.
 
-* To create a five day forecast page. The page should consist of the high and low temperatures for the next five days, based on the user’s current location.  For each day, the appropriate OpenWeatherMap icon representing the forecast weather conditions must be included. 
+- Created a five day forecast page. The page consists of the high and low temperatures for the next five days, based on the user’s current location. For each day, the appropriate OpenWeatherMap icon representing the forecast weather conditions is included.
 
-### API Documentation: 
+### API Documentation:
+
 https://openweathermap.org/
-
-
-## Tools Used
-
-* JavaScript
-* React JS
-* Material UI
-* OpenWeatherMap API
 
 ## Website
 
 http://hsankalp.github.io/weather-app (Needs location enabled)
 
-## To Do
+## Tools Used
 
-* Error Handling
+- JavaScript
+- React JS
+- Material UI
+- OpenWeatherMap API
 
+## Topics Covered
 
+- React Hooks (useState, useEffect, useContext)
+- Custom React Hooks (useFetch, useLocation) for reusability
+- React Router DOM for routing
+- Context API for global state management
+- HTML5 Geolocation for user's location
+- Responsive
