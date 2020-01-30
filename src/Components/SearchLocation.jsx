@@ -16,7 +16,6 @@ const SearchLocation = () => {
     <Grid item xs={12} sm={7} md={4} lg={3}>
       <form onSubmit={handleSubmit}>
         <TextField
-          id="outlined-basic"
           label="City"
           variant="outlined"
           fullWidth

@@ -7,7 +7,6 @@ const TemperatureMeasureSwitch = () => {
 
   return (
     <Button
-      size="small"
       variant="outlined"
       color="secondary"
       onClick={() => setIsMetric(!isMetric)}
