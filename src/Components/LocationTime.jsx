@@ -9,23 +9,19 @@ const LocationTime = ({ city }) => {
       minute: "2-digit"
     });
   return (
-    <>
-      <Grid item>
-        <Grid container spacing={1}>
-          <Grid item>
-            <LocationOn color="disabled" />
-          </Grid>
-          <Grid item>
-            <Typography variant="h6">{city}</Typography>
-          </Grid>
+    <Grid item>
+      <Grid container spacing={1}>
+        <Grid item>
+          <LocationOn color="disabled" />
+        </Grid>
+        <Grid item>
+          <Typography variant="h6">{city}</Typography>
+          <Typography variant="subtitle2" color="textSecondary">
+            {getCurrentTime()}
+          </Typography>
         </Grid>
       </Grid>
-      <Grid item>
-        <Typography variant="subtitle2" color="textSecondary">
-          {getCurrentTime()}
-        </Typography>
-      </Grid>
-    </>
+    </Grid>
   );
 };
 
