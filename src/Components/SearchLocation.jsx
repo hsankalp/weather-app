@@ -17,7 +17,6 @@ const SearchLocation = () => {
       <form onSubmit={handleSubmit}>
         <TextField
           id="outlined-basic"
-          size="small"
           label="City"
           variant="outlined"
           fullWidth
