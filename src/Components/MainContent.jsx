@@ -9,19 +9,17 @@ const MainContent = ({ location }) => {
   const [city, setCity] = useState();
 
   return (
-    <div className="main">
-      <WeatherContext.Provider value={{ isMetric, setIsMetric, city, setCity }}>
-        <Switch>
-          <Route exact path="/weather">
-            <Weather location={location} />
-          </Route>
-          <Route exact path="/forecast">
-            <FiveDayForecast location={location} />
-          </Route>
-          <Redirect to="/weather"></Redirect>
-        </Switch>
-      </WeatherContext.Provider>
-    </div>
+    <WeatherContext.Provider value={{ isMetric, setIsMetric, city, setCity }}>
+      <Switch>
+        <Route exact path="/weather">
+          <Weather location={location} />
+        </Route>
+        <Route exact path="/forecast">
+          <FiveDayForecast location={location} />
+        </Route>
+        <Redirect to="/weather"></Redirect>
+      </Switch>
+    </WeatherContext.Provider>
   );
 };
 
