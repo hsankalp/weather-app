@@ -1,21 +1,14 @@
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Grid,
-  CardActions,
-  LinearProgress
-} from "@material-ui/core";
-import DailyForecast from "./DailyForecast";
-import "../Styles/Forecast.css";
+import { Box, Paper, Grid, LinearProgress } from "@material-ui/core";
 import Error from "./Error";
 import { properties } from "../properties";
 import { useFetchHook } from "../Hooks/FetchHook";
 import TemperatureMeasureSwitch from "./TemperatureMeasureSwitch";
+import Temperature from "./Temperature";
+import LocationTime from "./LocationTime";
 
 const FiveDayForecast = ({ location }) => {
-  const [isLoading, value, error] = useFetchHook(
+  const [isLoading, forecast, error] = useFetchHook(
     `${properties.forecastUrl}?lat=${location.latitude}&lon=${location.longitude}&units=imperial&appId=${properties.apiKey}`,
     location
   );
@@ -28,32 +21,44 @@ const FiveDayForecast = ({ location }) => {
     );
 
   return (
-    <>
-      {value && (
-        <Card raised className="forecast-app-card">
-          <CardHeader title={value.city.name} subheader="5 Day Forecast" />
-          <CardContent>
-            <Grid container justify="center" spacing={4}>
-              {value.list
-                .filter((data, index) => index % 8 === 0)
-                .map(data => (
-                  <Grid key={data.dt} item className="daily-forecast-grid-item">
-                    <DailyForecast
-                      date={data.dt_txt}
-                      min={data.main.temp_min}
-                      max={data.main.temp_max}
-                      icon={data.weather[0].icon}
-                    />
-                  </Grid>
-                ))}
+    <Box m={2}>
+      {forecast && (
+        <Paper elevation={3}>
+          <Box p={2}>
+            <Grid container direction="column" spacing={2}>
+              <LocationTime city={forecast.city.name} />
+              <Grid item container justify="space-around">
+                {forecast.list
+                  .filter((data, index) => index % 8 === 0)
+                  .map(data => (
+                    <Grid
+                      item
+                      container
+                      direction="column"
+                      alignItems="center"
+                      spacing={1}
+                      xs={6}
+                      md={2}
+                      key={data.dt}
+                    >
+                      <Temperature
+                        temp={data.main.temp}
+                        condition={data.weather[0].main}
+                        feelsLike={data.main.feels_like}
+                        icon={data.weather[0].icon}
+                        date={data.dt_txt}
+                      />
+                    </Grid>
+                  ))}
+              </Grid>
+              <Grid item>
+                <TemperatureMeasureSwitch />
+              </Grid>
             </Grid>
-          </CardContent>
-          <CardActions>
-            <TemperatureMeasureSwitch />
-          </CardActions>
-        </Card>
+          </Box>
+        </Paper>
       )}
-    </>
+    </Box>
   );
 };
 

@@ -6,7 +6,12 @@ const TemperatureMeasureSwitch = () => {
   const { isMetric, setIsMetric } = useContext(MeasureContext);
 
   return (
-    <Button size="small" color="primary" onClick={() => setIsMetric(!isMetric)}>
+    <Button
+      size="small"
+      variant="outlined"
+      color="secondary"
+      onClick={() => setIsMetric(!isMetric)}
+    >
       {isMetric ? `Fahrenheit` : `Celsius`}
     </Button>
   );
