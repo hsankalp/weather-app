@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { getTemperature } from "../Helper/TemperatureUtil";
 import { properties } from "../properties";
-import { MeasureContext } from "../Context/MeasureContext";
+import { WeatherContext } from "../Context/WeatherContext";
 
 const Temperature = props => {
-  const { isMetric } = useContext(MeasureContext);
+  const { isMetric } = useContext(WeatherContext);
 
   return (
     <>

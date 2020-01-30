@@ -15,7 +15,9 @@ const LocationTime = ({ city }) => {
           <LocationOn color="disabled" />
         </Grid>
         <Grid item>
-          <Typography variant="h6">{city}</Typography>
+          <Typography variant="h6" gutterBottom>
+            {city}
+          </Typography>
           <Typography variant="subtitle2" color="textSecondary">
             {getCurrentTime()}
           </Typography>

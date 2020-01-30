@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { MeasureContext } from "../Context/MeasureContext";
+import { WeatherContext } from "../Context/WeatherContext";
 import { Button } from "@material-ui/core";
 
 const TemperatureMeasureSwitch = () => {
-  const { isMetric, setIsMetric } = useContext(MeasureContext);
+  const { isMetric, setIsMetric } = useContext(WeatherContext);
 
   return (
     <Button
