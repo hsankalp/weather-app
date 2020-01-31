@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { getTemperature } from "../Helper/TemperatureUtil";
 import { properties } from "../properties";
-import { WeatherContext } from "../Context/WeatherContext";
+import { WeatherContext } from "../Context/Context";
 
 const Temperature = props => {
   const { isMetric } = useContext(WeatherContext);

@@ -7,7 +7,7 @@ import TemperatureMeasureSwitch from "./TemperatureMeasureSwitch";
 import Temperature from "./Temperature";
 import SearchLocation from "./SearchLocation";
 import LocationTime from "./LocationTime";
-import { WeatherContext } from "../Context/WeatherContext";
+import { WeatherContext } from "../Context/Context";
 import { getQuery } from "../Helper/QueryUtil";
 
 const Weather = ({ location }) => {

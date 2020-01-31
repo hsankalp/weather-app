@@ -1,6 +1,6 @@
 import React, { useRef, useContext } from "react";
 import { Grid, TextField } from "@material-ui/core";
-import { WeatherContext } from "../Context/WeatherContext";
+import { WeatherContext } from "../Context/Context";
 
 const SearchLocation = () => {
   const cityRef = useRef();

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { WeatherContext } from "../Context/WeatherContext";
+import { WeatherContext } from "../Context/Context";
 import { Button } from "@material-ui/core";
 
 const TemperatureMeasureSwitch = () => {

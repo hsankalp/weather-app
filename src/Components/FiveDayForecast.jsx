@@ -7,7 +7,7 @@ import TemperatureMeasureSwitch from "./TemperatureMeasureSwitch";
 import Temperature from "./Temperature";
 import LocationTime from "./LocationTime";
 import { getQuery } from "../Helper/QueryUtil";
-import { WeatherContext } from "../Context/WeatherContext";
+import { WeatherContext } from "../Context/Context";
 import SearchLocation from "./SearchLocation";
 
 const FiveDayForecast = ({ location }) => {

@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Weather from "./Weather";
 import FiveDayForecast from "./FiveDayForecast";
-import { WeatherContext } from "../Context/WeatherContext";
+import WeatherProvider from "../Context/WeatherProvider";
 
 const MainContent = ({ location }) => {
-  const [isMetric, setIsMetric] = useState(false);
-  const [city, setCity] = useState();
-
   return (
-    <WeatherContext.Provider value={{ isMetric, setIsMetric, city, setCity }}>
+    <WeatherProvider>
       <Switch>
         <Route exact path="/weather">
           <Weather location={location} />
@@ -19,7 +16,7 @@ const MainContent = ({ location }) => {
         </Route>
         <Redirect to="/weather"></Redirect>
       </Switch>
-    </WeatherContext.Provider>
+    </WeatherProvider>
   );
 };
 
